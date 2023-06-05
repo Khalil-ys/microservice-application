@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-06-04-create
+      author: Khalil
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(25)
+              - column:
+                  name: surname
+                  type: varchar(25)
+              - column:
+                  name: group_name
+                  type: varchar(25)
+            tableName: students
+        - addAutoIncrement:
+            columnDataType: bigint
+            columnName: id
+            defaultOnNull: false
+            generationType: ALWAYS
+            incrementBy: 1
+            tableName: students
