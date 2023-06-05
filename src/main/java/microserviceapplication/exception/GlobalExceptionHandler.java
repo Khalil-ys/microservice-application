@@ -1,5 +1,6 @@
 package microserviceapplication.exception;
 
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,5 +21,11 @@ public class GlobalExceptionHandler {
     public ExceptionResponse handleValidationException(MethodArgumentNotValidException e) {
         return new ExceptionResponse(HttpStatus.BAD_REQUEST.value(),
                 e.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
+    @ExceptionHandler(CallNotPermittedException.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ExceptionResponse handleCallNotPermittedException(CallNotPermittedException e) {
+        return new ExceptionResponse(HttpStatus.SERVICE_UNAVAILABLE.value(), e.getMessage());
     }
 }

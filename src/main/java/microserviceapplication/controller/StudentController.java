@@ -1,5 +1,6 @@
 package microserviceapplication.controller;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,6 +26,7 @@ public class StudentController {
         service.createStudent(request);
     }
 
+    @CircuitBreaker(name = "gatAllStudents")
     @GetMapping
     public List<StudentResponse> getAll(){
         return service.getAll();
