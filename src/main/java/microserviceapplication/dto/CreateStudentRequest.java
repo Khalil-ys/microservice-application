@@ -14,10 +14,10 @@ import javax.validation.constraints.NotBlank;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateStudentRequest {
 
-    @NotBlank(message = "Name must not be nul!")
+    @NotBlank(message = "error.emptyName")
     String name;
-    @NotBlank(message = "Surname must not be nul!")
+    @NotBlank(message = "error.emptySurname")
     String surname;
-    @NotBlank(message = "Group name must not be nul!")
+    @NotBlank(message = "error.emptyGroupName")
     String groupName;
 }

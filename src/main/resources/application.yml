@@ -13,6 +13,8 @@ spring:
   h2:
     console:
       enabled: true
+  messages:
+    basename: i18n/messages
 
   liquibase:
     enabled: false

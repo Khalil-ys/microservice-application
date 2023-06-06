@@ -31,31 +31,26 @@ public class StudentService {
     }
 
     public List<StudentResponse> getAll() {
-        return repository.findAll().stream()
-                .map(mapper::mapEntityToResponse)
-                .collect(Collectors.toList());
+        return repository.findAll().stream().map(mapper::mapEntityToResponse).collect(Collectors.toList());
     }
 
     public StudentResponse getStudent(Long id) {
-        var student = repository.findById(id)
-                .orElseThrow(() -> ex(id));
+        var student = repository.findById(id).orElseThrow(this::ex);
         return mapper.mapEntityToResponse(student);
     }
 
     public void deleteStudent(Long id) {
-        var student = repository.findById(id)
-                .orElseThrow(() -> ex(id));
+        var student = repository.findById(id).orElseThrow(this::ex);
         repository.deleteById(student.getId());
     }
 
-    public StudentNotFoundException ex(Long id) {
-        throw new StudentNotFoundException("Student not found by id: " + id);
+    public StudentNotFoundException ex() {
+        throw new StudentNotFoundException();
     }
 
-    public void updateStudent(Long id, UpdateStudentRequest request){
-        var student =repository.findById(id)
-                .orElseThrow(()->ex(id));
-        mapper.mapUpdateRequestToEntity(student,request);
+    public void updateStudent(Long id, UpdateStudentRequest request) {
+        var student = repository.findById(id).orElseThrow(this::ex);
+        mapper.mapUpdateRequestToEntity(student, request);
         repository.save(student);
     }
 }
